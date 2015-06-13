@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include "wsh_posix.h"
+#include "platform.h"
 
 static void SignalHandler(int signal);
 

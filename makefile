@@ -1,12 +1,12 @@
-INCLUDE := -Iinclude -Iplatform -Iplatform/windows -Iplatform/posix
+INCLUDE := -Iinclude -Iplatform
 OUT_PATH := bin
 
 CC := gcc
 CFLAGS := -Wall $(INCLUDE)
 
-WINDOWS := $(wildcard platform/windows/*.c)
-POSIX := $(wildcard platform/posix/*.c)
-SRC :=	$(wildcard platform/*.c) $(wildcard core/*.c)
+WINDOWS := platform/wsh_windows.c
+POSIX := platform/wsh_posix.c
+SRC := $(wildcard core/*.c) platform/platform.c
 
 RM := 
 EXE := 
@@ -37,7 +37,5 @@ $(EXE): $(OBJ)
 clean:
 	@echo Cleaning all objects
 	@$(RM) platform/*.o
-	@$(RM) platform/windows/*.o
-	@$(RM) platform/posix/*.o
 	@$(RM) core/*.o
 	@$(RM) $(EXE_PATH)

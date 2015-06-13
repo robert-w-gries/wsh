@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include "platform.h"
 
-#ifdef _WIN32
-#include "windows/wsh_windows.h"
-#elif __linux
-#include "wsh_posix.h"
-#endif
-
 void init_platform(platform *p) {
 
 	#ifdef _WIN32
