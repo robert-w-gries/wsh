@@ -1,4 +1,3 @@
-#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "../platform/platform.h"
@@ -48,9 +47,7 @@ static enum WSH_STATUS wsh_loop() {
 
 		status = wsh_execute(cmd);
 
-        free(cmd->args1D);
-		free(cmd->args2D);
-		free(cmd);
+        cmd->delete_this(cmd);
 
 	} while (OK == status);
 

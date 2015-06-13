@@ -8,12 +8,10 @@
 wsh_input * wsh_readln() {
 
 	char *line = (char *) malloc(sizeof(char) * WSH_BUF_SIZE);
-	memset(line, '\0', WSH_BUF_SIZE);
-
-	if (line == NULL) {
-		fprintf(stderr, "Out of memory\n");
-		exit(EXIT_FAILURE);
-	}
+    if (NULL == line) {
+        fprintf(stderr, "Error: out of memory\n");
+        exit(EXIT_FAILURE);
+    }
 
 	fgets(line, WSH_BUF_SIZE, stdin);
 
@@ -24,6 +22,11 @@ wsh_input * wsh_readln() {
 	}
 
 	wsh_input *input = (wsh_input *) malloc(sizeof(wsh_input));
+    if (NULL == input) {
+        fprintf(stderr, "Error: out of memory\n");
+        exit(EXIT_FAILURE);
+    }
+
 	input->text = line;
 	input->length = length;
 
