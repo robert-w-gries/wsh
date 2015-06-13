@@ -4,7 +4,7 @@
 #include "platform.h"
 #include "wsh_parse.h"
 
-#define WSH_TOK_BUFSIZE 16
+#define WSH_TOK_BUFSIZE 8
 #define WSH_TOK_DELIM " \t\r\n\a"
 
 wsh_command * wsh_parseln(wsh_input *input) {
@@ -46,6 +46,8 @@ wsh_command * wsh_parseln(wsh_input *input) {
 		token = (char *) strtok(NULL, WSH_TOK_DELIM);
 
 	}
+
+    tokens[position] = NULL;
 
 	wsh_command *cmd = (wsh_command *) malloc(sizeof(wsh_command));
 	cmd->name = *tokens;
