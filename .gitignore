@@ -21,7 +21,6 @@
 *.dylib
 
 # Executables
-bin/wsh
 *.exe
 *.out
 *.app
