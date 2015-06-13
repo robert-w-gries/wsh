@@ -3,13 +3,24 @@ OUT_PATH := bin
 
 CC := gcc
 CFLAGS := -Wall $(INCLUDE)
-RM := rm
 
 WINDOWS := $(wildcard platform/windows/*.c)
 POSIX := $(wildcard platform/posix/*.c)
-SRC :=	$(wildcard platform/*.c) $(wildcard core/*.c) $(POSIX)
+SRC :=	$(wildcard platform/*.c) $(wildcard core/*.c)
+
+RM := 
+EXE := 
+ifeq ($(OS),Windows_NT)
+	RM := del
+	SRC += $(WINDOWS)
+    EXE = $(OUT_PATH)/wsh.exe
+else
+	RM := rm -f
+	SRC += $(POSIX)
+    EXE = $(OUT_PATH)/wsh
+endif
+
 OBJ = ${SRC:%.c=%.o}
-EXE := $(OUT_PATH)/wsh
 
 %.o: %.c
 	@echo Compiling $@
@@ -25,8 +36,8 @@ $(EXE): $(OBJ)
 .PHONY: clean
 clean:
 	@echo Cleaning all objects
-	@$(RM) -f platform/*.o
-	@$(RM) -f platform/windows/*.o
-	@$(RM) -f platform/posix/*.o
-	@$(RM) -f core/*.o
-	@$(RM) -f $(OUT_PATH)/wsh
+	@$(RM) platform/*.o
+	@$(RM) platform/windows/*.o
+	@$(RM) platform/posix/*.o
+	@$(RM) core/*.o
+	@$(RM) $(EXE_PATH)
