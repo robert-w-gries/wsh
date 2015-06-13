@@ -32,6 +32,7 @@ void init_platform(platform *p) {
 		#elif TARGET_OS_MAC
 			p->name = "MacOS";
 		#else
+            fprintf(stderr, "Error: Unsupported platform\n");
 			exit(EXIT_FAILURE);
 		#endif
 
@@ -49,6 +50,11 @@ void init_platform(platform *p) {
 
 		p->name = "Posix";
 		p->create_process = &posix_create_process;
+
+    #else
+
+        fprintf(stderr, "Error: Unsupported platform\n");
+        exit(EXIT_FAILURE);
 
 	#endif
 
