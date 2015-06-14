@@ -1,4 +1,4 @@
-INCLUDE := -Iinclude -Iplatform
+INCLUDE := -Iinclude -Iplatform -Iutil
 OUT_PATH := bin
 
 CC := gcc
@@ -6,7 +6,7 @@ CFLAGS := -Wall $(INCLUDE)
 
 WINDOWS := platform/wsh_windows.c
 POSIX := platform/wsh_posix.c
-SRC := $(wildcard core/*.c) platform/platform.c
+SRC := $(wildcard core/*.c) $(wildcard util/*.c) platform/platform.c
 
 RM := 
 EXE := 
