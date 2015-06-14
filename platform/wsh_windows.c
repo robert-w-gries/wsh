@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
-#include "wsh_windows.h"
+#include "platform.h"
 
 static BOOL WINAPI ConsoleHandler(DWORD dwType);
 
