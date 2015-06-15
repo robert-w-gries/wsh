@@ -21,5 +21,6 @@ struct wsh_command_struct {
 } typedef wsh_command;
 
 wsh_command * new_wsh_command();
+void clear_command(wsh_command *cmd);
 
 #endif

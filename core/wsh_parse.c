@@ -7,7 +7,7 @@
 #define WSH_TOK_BUFSIZE 8
 #define WSH_TOK_DELIM " \t\r\n\a"
 
-wsh_command * wsh_parseln(wsh_input *input) {
+wsh_command wsh_parseln(wsh_input *input) {
 
     int position = 0, bufsize = WSH_TOK_BUFSIZE;
 
@@ -59,12 +59,12 @@ wsh_command * wsh_parseln(wsh_input *input) {
 
     tokens[position] = NULL;
 
-    wsh_command *cmd = new_wsh_command();
-    cmd->name = *tokens;
-    cmd->nargs = position;
-    cmd->args1D = input_copy;
-    cmd->args2D = tokens;
-    cmd->cmd_type = text;
+    wsh_command cmd;
+    cmd.name = *tokens;
+    cmd.nargs = position;
+    cmd.args1D = input_copy;
+    cmd.args2D = tokens;
+    cmd.cmd_type = text;
 
     return cmd;
 }

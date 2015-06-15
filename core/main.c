@@ -21,6 +21,7 @@ int main(int argc, char **argv) {
 
     //TODO: Error reporting
 
+    // Clean up
     delete_hashtable();
     return result;
 
@@ -36,24 +37,21 @@ static enum WSH_STATUS wsh_loop() {
 
         printf("> ");
 
-        wsh_input *input = wsh_readln();
-        if (input->length <= 0) {
-            free(input->text);
-            free(input);
+        wsh_input input = wsh_readln();
+        if (0 >= input.length) {
+            clear_input(&input);
             continue;
         }
 
-        wsh_command *cmd = wsh_parseln(input);
+        wsh_command cmd = wsh_parseln(&input);
+        clear_input(&input);
 
-        free(input->text);
-        free(input);
-
-        status = wsh_execute(cmd);
-
-        cmd->delete_this(cmd);
+        status = wsh_execute(&cmd);
+        clear_command(&cmd);
 
     } while (OK == status);
 
     return status;
 
 }
+

@@ -32,3 +32,11 @@ static void delete_this(wsh_command *cmd) {
     free(cmd);
 
 }
+
+void clear_command(wsh_command *cmd) {
+
+    free(cmd->args1D);
+    free(cmd->args2D);
+
+}
+
