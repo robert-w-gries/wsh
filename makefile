@@ -36,6 +36,7 @@ $(EXE): $(OBJ)
 .PHONY: clean
 clean:
 	@echo Cleaning all objects
+	@$(RM) util/*.o
 	@$(RM) platform/*.o
 	@$(RM) core/*.o
 	@$(RM) $(EXE_PATH)
