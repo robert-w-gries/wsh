@@ -6,12 +6,14 @@
 #include "../include/wsh_read.h"
 #include "../include/wsh_parse.h"
 #include "../include/wsh_execute.h"
+#include "../include/wsh_builtin.h"
 
 static enum WSH_STATUS wsh_loop();
 
 int main(int argc, char **argv) {
 
 	init_platform(&my_platform);
+    init_hashtable();
 
 	//TODO: Configurations
 
@@ -19,6 +21,7 @@ int main(int argc, char **argv) {
 
 	//TODO: Error reporting
 
+    delete_hashtable();
 	return result;
 
 }
