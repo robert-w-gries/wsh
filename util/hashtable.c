@@ -12,18 +12,18 @@ static void delete_this(hashtable *ht);
 
 hashtable * new_hashtable(int size) {
 
-	hashtable *ht = (hashtable *)malloc(sizeof(hashtable));
-	if (NULL == ht) {
-		fprintf(stderr, "Error: out of memory\n");
-		exit(EXIT_FAILURE);
-	}
+    hashtable *ht = (hashtable *)malloc(sizeof(hashtable));
+    if (NULL == ht) {
+        fprintf(stderr, "Error: out of memory\n");
+        exit(EXIT_FAILURE);
+    }
 
-	ht->size = size;
+    ht->size = size;
     init_hashtable(ht);
 
-	ht->table = create_table(ht->size);
+    ht->table = create_table(ht->size);
 
-	return ht;
+    return ht;
 }
 
 void init_hashtable(hashtable *ht) {
@@ -36,11 +36,11 @@ void init_hashtable(hashtable *ht) {
 
 entry ** create_table(int size) {
 
-	entry **table = (entry **)malloc(size*sizeof(entry *));
-	if (NULL == table) {
-		fprintf(stderr, "Error: out of memory\n");
-		exit(EXIT_FAILURE);
-	}
+    entry **table = (entry **)malloc(size*sizeof(entry *));
+    if (NULL == table) {
+        fprintf(stderr, "Error: out of memory\n");
+        exit(EXIT_FAILURE);
+    }
 
     return table;
 
@@ -98,14 +98,14 @@ static entry * new_entry(const char *key, builtin_fn value) {
 // source: http://www.cse.yorku.ca/~oz/hash.html 
 static unsigned long hash(const char * key) {
 
-	unsigned long hashval = 5381;
+    unsigned long hashval = 5381;
 
     int i = 0;
     for (i = 0; i < strlen(key); i++) {
         hashval = ((hashval << 5) + hashval) + key[i];
-	}
+    }
 
-	return hashval;
+    return hashval;
 }
 
 static builtin_fn get(hashtable *ht, const char * key) {
@@ -123,7 +123,7 @@ static builtin_fn get(hashtable *ht, const char * key) {
         return NULL;
     }
 
-	return curr->value;
+    return curr->value;
 
 }
 

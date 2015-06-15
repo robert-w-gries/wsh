@@ -7,17 +7,17 @@
 typedef enum WSH_STATUS (*builtin_fn)(wsh_command *);
 
 struct entry_struct {
-	char *key;
-	enum WSH_STATUS (*value)(wsh_command *);
-	struct entry_struct *next;
+    char *key;
+    enum WSH_STATUS (*value)(wsh_command *);
+    struct entry_struct *next;
 } typedef entry;
 
 struct hashtable_struct {
-	int size;
-	entry **table;
-	builtin_fn (*get)(struct hashtable_struct *, const char *);
-	builtin_fn (*put)(struct hashtable_struct *, const char *, builtin_fn);
-	void (*delete_this)(struct hashtable_struct *);
+    int size;
+    entry **table;
+    builtin_fn (*get)(struct hashtable_struct *, const char *);
+    builtin_fn (*put)(struct hashtable_struct *, const char *, builtin_fn);
+    void (*delete_this)(struct hashtable_struct *);
 } typedef hashtable;
 
 hashtable * new_hashtable(int size);
