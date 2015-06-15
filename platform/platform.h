@@ -14,7 +14,5 @@ platform my_platform;
 
 // general platform functions
 void init_platform(platform *p);
-void init_posix();
-void init_windows();
 
 #endif

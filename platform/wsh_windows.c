@@ -10,11 +10,12 @@ static void windows_signal_handler();
 
 static BOOL WINAPI ConsoleHandler(DWORD dwType);
 
-void init_windows() {
+void init_platform(platform *p) {
 
-    my_platform.change_directory = &windows_change_directory;
-    my_platform.create_process = &windows_create_process;
-    my_platform.signal_handler = &windows_signal_handler;
+    p->name = "Windows";
+    p->change_directory = &windows_change_directory;
+    p->create_process = &windows_create_process;
+    p->signal_handler = &windows_signal_handler;
 
 }
 

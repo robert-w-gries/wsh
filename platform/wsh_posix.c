@@ -10,6 +10,15 @@ static int posix_create_process(wsh_command *cmd);
 static void posix_signal_handler();
 static void SignalHandler(int signal);
 
+void init_platform(platform *p) {
+
+    p->name = "Posix";
+    p->change_directory = &posix_change_directory;
+    p->create_process = &posix_create_process;
+    p->signal_handler = &posix_signal_handler;
+
+}
+
 void init_posix() {
 
     my_platform.change_directory = &posix_change_directory;
