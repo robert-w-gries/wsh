@@ -4,10 +4,10 @@
 #include "wsh_command.h"
 
 struct platform_struct {
-	const char *name;
+    const char *name;
     int (*change_directory)(wsh_command *);
-	int (*create_process)(wsh_command *);
-	void (*signal_handler)();
+    int (*create_process)(wsh_command *);
+    void (*signal_handler)();
 } typedef platform;
 
 platform my_platform;

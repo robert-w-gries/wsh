@@ -24,7 +24,7 @@ static int windows_change_directory(wsh_command *cmd) {
 
 static int windows_create_process(wsh_command *cmd) {
 
-	STARTUPINFO si;
+    STARTUPINFO si;
     PROCESS_INFORMATION pi;
 
     ZeroMemory(&si, sizeof(si));
@@ -62,27 +62,29 @@ static int windows_create_process(wsh_command *cmd) {
 
 static void windows_signal_handler() {
 
-	if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)ConsoleHandler, TRUE)) {
-		fprintf(stderr, "Unable to install handler\n");
-		return;
-	}
+    if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)ConsoleHandler, TRUE)) {
+        fprintf(stderr, "Unable to install handler\n");
+        return;
+    }
+
 }
 
 static BOOL WINAPI ConsoleHandler(DWORD dwType) {
 
     switch(dwType) {
-		case CTRL_C_EVENT:
-			printf("ctrl-c\n");
-			exit(EXIT_FAILURE);
-			break;
-		case CTRL_BREAK_EVENT:
-			printf("break\n");
-			exit(EXIT_FAILURE);
-			break;
-		default:
-			printf("Some other event\n");
-			break;
-	}
+        case CTRL_C_EVENT:
+            printf("ctrl-c\n");
+            exit(EXIT_FAILURE);
+            break;
+        case CTRL_BREAK_EVENT:
+            printf("break\n");
+            exit(EXIT_FAILURE);
+            break;
+        default:
+            printf("Some other event\n");
+            break;
+    }
 
     return TRUE;
 }
+
