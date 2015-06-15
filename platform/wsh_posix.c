@@ -19,14 +19,6 @@ void init_platform(platform *p) {
 
 }
 
-void init_posix() {
-
-    my_platform.change_directory = &posix_change_directory;
-    my_platform.create_process = &posix_create_process;
-    my_platform.signal_handler = &posix_signal_handler;
-
-}
-
 static int posix_change_directory(wsh_command *cmd) {
 
     char *path = cmd->args2D[1];
