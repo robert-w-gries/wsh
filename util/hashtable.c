@@ -162,5 +162,6 @@ static void delete_this(hashtable *ht) {
     }
 
     free(ht->table);
+    free(ht);
 
 }
