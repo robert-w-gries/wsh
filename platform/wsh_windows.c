@@ -4,9 +4,25 @@
 #include <windows.h>
 #include "platform.h"
 
+static int windows_change_directory(wsh_command *cmd);
+static int windows_create_process(wsh_command *cmd);
+static void windows_signal_handler();
+
 static BOOL WINAPI ConsoleHandler(DWORD dwType);
 
-int windows_create_process(wsh_command *cmd) {
+void init_windows() {
+
+    my_platform.change_directory = &windows_change_directory;
+    my_platform.create_process = &windows_create_process;
+    my_platform.signal_handler = &windows_signal_handler;
+
+}
+
+static int windows_change_directory(wsh_command *cmd) {
+    return 0;
+}
+
+static int windows_create_process(wsh_command *cmd) {
 
 	STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -44,7 +60,7 @@ int windows_create_process(wsh_command *cmd) {
 
 }
 
-void windows_signal_handler() {
+static void windows_signal_handler() {
 
 	if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)ConsoleHandler, TRUE)) {
 		fprintf(stderr, "Unable to install handler\n");

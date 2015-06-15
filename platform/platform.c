@@ -7,8 +7,7 @@ void init_platform(platform *p) {
 	#ifdef _WIN32
 
 		p->name = "Windows32";
-		p->create_process = &windows_create_process;
-		p->signal_handler = &windows_signal_handler;
+        init_windows();
 
 		#ifdef _WIN64
 			p->name = "Windows64";
@@ -17,7 +16,7 @@ void init_platform(platform *p) {
 	#elif __APPLE__
 
 		#include "TargetConditionals.h"
-		p->create_process = &posix_create_process;
+        init_posix();
 
 		#if TARGET_IPHONE_SIMULATOR
 			p->name = "Iphone Simulator";
@@ -33,17 +32,17 @@ void init_platform(platform *p) {
 	#elif __linux
 
 		p->name = "Linux";
-		p->create_process = &posix_create_process;
+		init_posix();
 
 	#elif __unix // all unices not caught above
 
 		p->name = "Unix";
-		p->create_process = &posix_create_process;
+		init_posix();
 
 	#elif __posix
 
 		p->name = "Posix";
-		p->create_process = &posix_create_process;
+		init_posix();
 
     #else
 

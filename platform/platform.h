@@ -5,7 +5,8 @@
 
 struct platform_struct {
 	const char *name;
-	int (*create_process)(wsh_command *cmd);
+    int (*change_directory)(wsh_command *);
+	int (*create_process)(wsh_command *);
 	void (*signal_handler)();
 } typedef platform;
 
@@ -13,11 +14,7 @@ platform my_platform;
 
 // general platform functions
 void init_platform(platform *p);
-
-// platform specific functions
-int windows_create_process(wsh_command *cmd);
-void windows_signal_handler();
-int posix_create_process(wsh_command *cmd); 
-void posix_signal_handler();
+void init_posix();
+void init_windows();
 
 #endif
