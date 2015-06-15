@@ -4,8 +4,9 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include "platform.h"
+#include "../include/wsh_status.h"
 
-static int posix_change_directory(wsh_command *cmd);
+static enum WSH_STATUS posix_change_directory(wsh_command *cmd);
 static int posix_create_process(wsh_command *cmd);
 static void posix_signal_handler();
 static void SignalHandler(int signal);
@@ -19,7 +20,7 @@ void init_platform(platform *p) {
 
 }
 
-static int posix_change_directory(wsh_command *cmd) {
+static enum WSH_STATUS posix_change_directory(wsh_command *cmd) {
 
     char *path = cmd->args2D[1];
 
@@ -30,10 +31,10 @@ static int posix_change_directory(wsh_command *cmd) {
 
     if (0 != chdir(path)) {
         perror("wsh");
-        return 0;
+        return APPLICATION_FAILURE;
     }
 
-    return 1;
+    return OK;
 
 }
 

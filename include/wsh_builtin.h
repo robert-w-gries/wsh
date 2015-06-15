@@ -2,8 +2,9 @@
 #define _WSH_BUILTIN_H_
 
 #include "../util/hashtable.h"
+#include "../include/wsh_status.h"
 
-typedef int (*builtin_fn)(wsh_command *cmd);
+typedef enum WSH_STATUS (*builtin_fn)(wsh_command *cmd);
 
 void init_hashtable();
 void delete_hashtable();

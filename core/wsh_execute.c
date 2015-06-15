@@ -8,8 +8,7 @@ enum WSH_STATUS wsh_execute(wsh_command *cmd) {
 
     builtin_fn wsh_builtin = get_builtin(cmd->name);
     if (NULL != wsh_builtin) {
-        wsh_builtin(cmd);
-        return OK;
+        return wsh_builtin(cmd);
     }
 
     int result = my_platform.create_process(cmd);

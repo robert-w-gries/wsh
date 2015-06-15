@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include "../platform/platform.h"
-#include "wsh_builtin.h"
 #include "../util/hashtable.h"
+#include "../include/wsh_builtin.h"
 
 static int get_num_builtins();
 
-static int wsh_cd(wsh_command *cmd);
-static int wsh_help(wsh_command *cmd);
-static int wsh_exit(wsh_command *cmd);
+static enum WSH_STATUS wsh_cd(wsh_command *cmd);
+static enum WSH_STATUS wsh_help(wsh_command *cmd);
+static enum WSH_STATUS wsh_exit(wsh_command *cmd);
 
 hashtable *ht;
 
@@ -48,23 +48,23 @@ static int get_num_builtins() {
     return sizeof(builtin_str) / sizeof(char *);
 }
 
-static int wsh_cd(wsh_command *cmd) {
+static enum WSH_STATUS wsh_cd(wsh_command *cmd) {
 
     return my_platform.change_directory(cmd);
 
 }
 
-static int wsh_help(wsh_command *cmd) {
+static enum WSH_STATUS wsh_help(wsh_command *cmd) {
 
     printf("This is not helpful\n");
-    return 1;
+    return OK;
 
 }
 
-static int wsh_exit(wsh_command *cmd) {
+static enum WSH_STATUS wsh_exit(wsh_command *cmd) {
 
     printf("Not implemented yet! Uh-oh!\n");
-    return 0;
+    return OK;
 
 }
 

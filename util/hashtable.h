@@ -2,12 +2,13 @@
 #define _HASHTABLE_H_
 
 #include "../include/wsh_command.h"
+#include "../include/wsh_status.h"
 
-typedef int (*builtin_fn)(wsh_command *);
+typedef enum WSH_STATUS (*builtin_fn)(wsh_command *);
 
 struct entry_struct {
 	char *key;
-	builtin_fn value;
+	enum WSH_STATUS (*value)(wsh_command *);
 	struct entry_struct *next;
 } typedef entry;
 
