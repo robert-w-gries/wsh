@@ -1,6 +1,8 @@
 #ifndef _HASHTABLE_H_
 #define _HASHTABLE_H_
 
+#include "../include/wsh_command.h"
+
 typedef int (*builtin_fn)(wsh_command *);
 
 struct entry_struct {

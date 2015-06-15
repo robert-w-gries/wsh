@@ -65,11 +65,11 @@ static entry * new_entry(const char *key, builtin_fn value) {
 // source: http://www.cse.yorku.ca/~oz/hash.html 
 static unsigned long hash(const char * key) {
 
-    const char *str = key;
 	unsigned long hashval = 5381;
 
-    while (str) {
-        hashval = ((hashval << 5) + hashval) + *str++;
+    int i = 0;
+    for (i = 0; i < strlen(key); i++) {
+        hashval = ((hashval << 5) + hashval) + key[i];
 	}
 
 	return hashval;
@@ -81,7 +81,7 @@ static builtin_fn get(hashtable *ht, const char * key) {
     entry *curr = ht->table[bin];
 
     // search for matching key
-    while (0 != strcmp(curr->key, key) && NULL != curr) {
+    while (NULL != curr && 0 != strcmp(curr->key, key)) {
         curr = curr->next;
     } 
 
@@ -96,13 +96,11 @@ static builtin_fn get(hashtable *ht, const char * key) {
 
 static builtin_fn put(hashtable *ht, const char * key, builtin_fn value) {
 
-
     // make a new entry for hashtable and get bin location
     entry *e = new_entry(key, value);
     int bin = hash(e->key) % ht->size;
 
     entry *curr = ht->table[bin];
-
     if (NULL == curr) {
         ht->table[bin] = e;
         return e->value;
