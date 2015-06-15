@@ -13,7 +13,7 @@ static enum WSH_STATUS wsh_loop();
 int main(int argc, char **argv) {
 
     init_platform(&my_platform);
-    init_hashtable();
+    init_builtin_hashtable();
 
     //TODO: Configurations
 

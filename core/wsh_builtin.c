@@ -3,13 +3,15 @@
 #include "../util/hashtable.h"
 #include "../include/wsh_builtin.h"
 
+#define HASHTABLE_SIZE 100
+
 static int get_num_builtins();
 
 static enum WSH_STATUS wsh_cd(wsh_command *cmd);
 static enum WSH_STATUS wsh_help(wsh_command *cmd);
 static enum WSH_STATUS wsh_exit(wsh_command *cmd);
 
-hashtable *ht;
+static hashtable ht;
 
 static const char *builtin_str[] = {
     "cd",
@@ -23,25 +25,27 @@ static builtin_fn builtin_ptr[] = {
     &wsh_exit
 };
 
-void init_hashtable() {
+void init_builtin_hashtable() {
 
-    ht = new_hashtable(100);
+    init_hashtable(&ht);
+    ht.size = HASHTABLE_SIZE;
+    ht.table = create_table(ht.size);
 
     int i = 0;
     for (i = 0; i < get_num_builtins(); i++) {
-        ht->put(ht, builtin_str[i], builtin_ptr[i]);
+        ht.put(&ht, builtin_str[i], builtin_ptr[i]);
     }
 
 }
 
 void delete_hashtable() {
 
-   ht->delete_this(ht);
+    clear_hashtable(&ht);
 
 } 
 
 builtin_fn get_builtin(const char *key) {
-    return ht->get(ht, key);
+    return ht.get(&ht, key);
 }
 
 static int get_num_builtins() {

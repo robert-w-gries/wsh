@@ -1,7 +1,6 @@
 #ifndef _WSH_BUILTIN_H_
 #define _WSH_BUILTIN_H_
 
-#include "../util/hashtable.h"
 #include "../include/wsh_status.h"
 
 typedef enum WSH_STATUS (*builtin_fn)(wsh_command *cmd);

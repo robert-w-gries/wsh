@@ -19,9 +19,22 @@ hashtable * new_hashtable(int size) {
 	}
 
 	ht->size = size;
-	ht->get = &get;
-	ht->put = &put;
-	ht->delete_this = &delete_this;
+    init_hashtable(ht);
+
+	ht->table = create_table(ht->size);
+
+	return ht;
+}
+
+void init_hashtable(hashtable *ht) {
+
+    ht->get = &get;
+    ht->put = &put;
+    ht->delete_this = &delete_this;
+
+}
+
+entry ** create_table(int size) {
 
 	entry **table = (entry **)malloc(size*sizeof(entry *));
 	if (NULL == table) {
@@ -29,9 +42,29 @@ hashtable * new_hashtable(int size) {
 		exit(EXIT_FAILURE);
 	}
 
-	ht->table = table;
+    return table;
 
-	return ht;
+}
+
+void clear_hashtable(hashtable *ht) {
+
+    int i = 0;
+    for (i = 0; i < ht->size; i++) {
+
+        entry *e = ht->table[i];
+        entry *next = NULL;
+
+        while (e) {
+            next = e->next;
+            free(e->key);
+            free(e);
+            e = next;
+        }
+
+    }
+
+    free(ht->table);
+
 }
 
 static entry * new_entry(const char *key, builtin_fn value) {
@@ -144,22 +177,8 @@ static builtin_fn put(hashtable *ht, const char * key, builtin_fn value) {
 
 static void delete_this(hashtable *ht) {
 
-    int i = 0;
-    for (i = 0; i < ht->size; i++) {
-
-        entry *e = ht->table[i];
-        entry *next = NULL;
-
-        while (e) {
-            next = e->next;
-            free(e->key);
-            free(e);
-            e = next;
-        }
-
-    }
-
-    free(ht->table);
+    clear_hashtable(ht);
     free(ht);
 
 }
+

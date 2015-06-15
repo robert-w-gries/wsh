@@ -21,5 +21,8 @@ struct hashtable_struct {
 } typedef hashtable;
 
 hashtable * new_hashtable(int size);
+void init_hashtable(hashtable *ht);
+entry ** create_table(int size);
+void clear_hashtable(hashtable *ht);
 
 #endif
