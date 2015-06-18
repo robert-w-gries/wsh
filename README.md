@@ -8,6 +8,8 @@ A multi-platform shell written in C
 ```
 git clone <wsh_url>
 cd wsh
-cmake .
-./bin/wsh
+mkdir build
+cd build
+cmake ..
+./wsh
 ```
