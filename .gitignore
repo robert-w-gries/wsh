@@ -1,3 +1,8 @@
+# Eclipse files
+.settings
+.cproject
+.project
+
 # CMake files
 Makefile
 CMakeFiles
