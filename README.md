@@ -11,5 +11,6 @@ cd wsh
 mkdir build
 cd build
 cmake ..
+make
 ./wsh
 ```
