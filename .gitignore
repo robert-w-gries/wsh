@@ -32,6 +32,7 @@ cmake_install.cmake
 *.dylib
 
 # Executables
+wsh
 *.exe
 *.out
 *.app

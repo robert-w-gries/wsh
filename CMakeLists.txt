@@ -12,10 +12,10 @@ set (WSH_VERSION "${WSH_VERSION_MAJOR}.${WSH_ERSION_MINOR}")
 set (CMAKE_CXX_FLAGS "-Wall")
 
 # Source directories
-set (UTIL_DIR ${WSH_SOURCE_DIR}/"util")
-set (PLATFORM_DIR ${WSH_SOURCE_DIR}/"platform")
-set (INCLUDE_DIR ${WSH_SOURCE_DIR}/"include")
-set (CORE_DIR ${WSH_SOURCE_DIR}/"core")
+set (UTIL_DIR "util")
+set (PLATFORM_DIR "platform")
+set (INCLUDE_DIR "include")
+set (CORE_DIR "core")
 
 # Include directories
 include_directories (${UTIL_DIR})
