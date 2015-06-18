@@ -5,7 +5,7 @@
 
 typedef enum WSH_STATUS (*builtin_fn)(wsh_command *cmd);
 
-void init_hashtable();
+void init_builtin_hashtable();
 void delete_hashtable();
 builtin_fn get_builtin(const char *key);
 
