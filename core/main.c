@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
     //TODO: Error reporting
 
     // Clean up
-    delete_hashtable();
+    clear_builtin_hashtable();
     return result;
 
 }

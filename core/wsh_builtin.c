@@ -38,7 +38,7 @@ void init_builtin_hashtable() {
 
 }
 
-void delete_hashtable() {
+void clear_builtin_hashtable() {
 
     clear_hashtable(&ht);
 
