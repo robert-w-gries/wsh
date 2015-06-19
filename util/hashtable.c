@@ -36,7 +36,7 @@ void init_hashtable(hashtable *ht) {
 
 entry ** create_table(int size) {
 
-    entry **table = (entry **)malloc(size*sizeof(entry *));
+    entry **table = (entry **)calloc(size, sizeof(entry *));
     if (NULL == table) {
         fprintf(stderr, "Error: out of memory\n");
         exit(EXIT_FAILURE);
