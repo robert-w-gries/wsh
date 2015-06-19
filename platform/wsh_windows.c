@@ -3,10 +3,11 @@
 #include <stdlib.h>
 #include <windows.h>
 #include "platform.h"
+#include "../include/wsh_status.h"
 
-static int windows_change_directory(wsh_command *cmd);
-static int windows_create_process(wsh_command *cmd);
-static void windows_signal_handler();
+static enum WSH_STATUS windows_change_directory(wsh_command *cmd);
+static enum WSH_STATUS windows_create_process(wsh_command *cmd);
+static enum WSH_STATUS windows_signal_handler();
 
 static BOOL WINAPI ConsoleHandler(DWORD dwType);
 
@@ -19,11 +20,25 @@ void init_platform(platform *p) {
 
 }
 
-static int windows_change_directory(wsh_command *cmd) {
-    return 0;
+static enum WSH_STATUS windows_change_directory(wsh_command *cmd) {
+
+	char *path = cmd->args2D[1];
+
+    // if no arguments, go to home directory
+    if (1 >= cmd->nargs) {
+        path = getenv("HOME");
+	}
+
+	if (0 != chdir(path)) {
+        perror("wsh");
+        return APPLICATION_FAILURE;
+    }
+
+	return OK;
+
 }
 
-static int windows_create_process(wsh_command *cmd) {
+static enum WSH_STATUS windows_create_process(wsh_command *cmd) {
 
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
@@ -47,7 +62,7 @@ static int windows_create_process(wsh_command *cmd) {
     )
     {
         printf( "CreateProcess failed (%d).\n", (int) GetLastError() );
-        return -1;
+        return APPLICATION_FAILURE;
     }
 
     // Wait until child process exits.
@@ -57,16 +72,18 @@ static int windows_create_process(wsh_command *cmd) {
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 
-    return 0;
+    return OK;
 
 }
 
-static void windows_signal_handler() {
+static enum WSH_STATUS windows_signal_handler() {
 
     if (!SetConsoleCtrlHandler((PHANDLER_ROUTINE)ConsoleHandler, TRUE)) {
         fprintf(stderr, "Unable to install handler\n");
-        return;
+        return APPLICATION_FAILURE;
     }
+
+    return OK;
 
 }
 
