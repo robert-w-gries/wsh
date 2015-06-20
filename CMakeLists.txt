@@ -56,4 +56,3 @@ else()
 endif()
 
 add_executable (wsh ${UTIL_SOURCES} ${INCLUDE_FILES} ${PLATFORM_FILES} ${CORE_FILES})
-install (TARGETS wsh DESTINATION bin)
