@@ -35,7 +35,7 @@ static enum WSH_STATUS wsh_loop() {
 
     do {
 
-        printf("> ");
+        printf("%s> ", my_platform.cwd);
 
         wsh_input input = wsh_readln();
         if (0 >= input.length) {

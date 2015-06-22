@@ -6,14 +6,16 @@
 
 struct platform_struct {
     const char *name;
-    enum WSH_STATUS (*change_directory)(wsh_command *);
-    enum WSH_STATUS(*create_process)(wsh_command *);
-    enum WSH_STATUS(*signal_handler)();
+    char *cwd;
 } typedef platform;
 
 platform my_platform;
 
 // general platform functions
 void init_platform(platform *p);
+enum WSH_STATUS change_directory(wsh_command *cmd);
+enum WSH_STATUS create_process(wsh_command *cmd);
+char * get_current_directory();
+enum WSH_STATUS signal_handler();
 
 #endif

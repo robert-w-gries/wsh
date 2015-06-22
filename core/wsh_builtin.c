@@ -58,7 +58,7 @@ static int get_num_builtins() {
 
 static enum WSH_STATUS wsh_cd(wsh_command *cmd) {
 
-    return my_platform.change_directory(cmd);
+    return change_directory(cmd);
 
 }
 
