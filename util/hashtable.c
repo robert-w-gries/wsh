@@ -3,46 +3,20 @@
 #include <string.h>
 #include "hashtable.h"
 
-static unsigned long hash(const char *key);
 static entry * new_entry(const char *key, builtin_fn value);
+static entry ** create_table(int size);
 
+static unsigned long hash(const char *key);
 static builtin_fn get(hashtable *ht, const char *key);
 static builtin_fn put(hashtable *ht, const char *key, builtin_fn fn);
-static void delete_this(hashtable *ht);
 
-hashtable * new_hashtable(int size) {
-
-    hashtable *ht = (hashtable *)malloc(sizeof(hashtable));
-    if (NULL == ht) {
-        fprintf(stderr, "Error: out of memory\n");
-        exit(EXIT_FAILURE);
-    }
+void init_hashtable(hashtable *ht, int size) {
 
     ht->size = size;
-    init_hashtable(ht);
-
-    ht->table = create_table(ht->size);
-
-    return ht;
-}
-
-void init_hashtable(hashtable *ht) {
-
     ht->get = &get;
     ht->put = &put;
-    ht->delete_this = &delete_this;
 
-}
-
-entry ** create_table(int size) {
-
-    entry **table = (entry **)calloc(size, sizeof(entry *));
-    if (NULL == table) {
-        fprintf(stderr, "Error: out of memory\n");
-        exit(EXIT_FAILURE);
-    }
-
-    return table;
+    ht->table = create_table(ht);
 
 }
 
@@ -64,6 +38,18 @@ void clear_hashtable(hashtable *ht) {
     }
 
     free(ht->table);
+
+}
+
+static entry ** create_table(int size) {
+
+    entry **table = (entry **)calloc(size, sizeof(entry *));
+    if (NULL == table) {
+        fprintf(stderr, "Error: out of memory\n");
+        exit(EXIT_FAILURE);
+    }
+
+    return table;
 
 }
 
@@ -174,11 +160,3 @@ static builtin_fn put(hashtable *ht, const char * key, builtin_fn value) {
     return NULL;
 
 }
-
-static void delete_this(hashtable *ht) {
-
-    clear_hashtable(ht);
-    free(ht);
-
-}
-

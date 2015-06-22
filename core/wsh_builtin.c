@@ -1,9 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../platform/platform.h"
 #include "../util/hashtable.h"
 #include "../include/wsh_builtin.h"
-
-#define HASHTABLE_SIZE 100
 
 static int get_num_builtins();
 
@@ -25,11 +24,16 @@ static builtin_fn builtin_ptr[] = {
     &wsh_exit
 };
 
+#define BUILTIN_HASHTABLE_SIZE (sizeof(builtin_str) / sizeof(const char *))
+
 void init_builtin_hashtable() {
 
-    init_hashtable(&ht);
-    ht.size = HASHTABLE_SIZE;
-    ht.table = create_table(ht.size);
+    if (get_num_builtins() != (sizeof(builtin_ptr) / sizeof(builtin_fn *))) {
+        fprintf(stderr, "Mismatch of builtin arrays sizes\n");
+        exit(EXIT_FAILURE);
+    }
+
+    init_hashtable(&ht, BUILTIN_HASHTABLE_SIZE);
 
     int i = 0;
     for (i = 0; i < get_num_builtins(); i++) {
