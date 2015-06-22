@@ -29,7 +29,7 @@ enum WSH_STATUS change_directory(wsh_command *cmd) {
     // if no arguments, go to home directory
     if (1 >= cmd->nargs) {
         int path_length = 0;
-        path = getenv_s(&path_length, path, MAX_PATH, "HOME");
+        getenv_s(&path_length, path, MAX_PATH, "HOME");
 	}
 
     printf("Path = %s\n", path);
