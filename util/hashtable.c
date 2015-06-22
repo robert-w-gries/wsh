@@ -83,8 +83,8 @@ static entry * new_entry(const char *key, builtin_fn value) {
         exit(EXIT_FAILURE);
     }
 
-    strncpy(key_copy, key, length);
-    key_copy[length] = '\0';
+    key_copy[0] = '\0';
+    strncat(key_copy, key, length);
 
     e->key = key_copy;
     e->value = value;
