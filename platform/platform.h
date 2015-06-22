@@ -7,8 +7,8 @@
 struct platform_struct {
     const char *name;
     enum WSH_STATUS (*change_directory)(wsh_command *);
-    int (*create_process)(wsh_command *);
-    void (*signal_handler)();
+    enum WSH_STATUS(*create_process)(wsh_command *);
+    enum WSH_STATUS(*signal_handler)();
 } typedef platform;
 
 platform my_platform;
