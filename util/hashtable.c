@@ -4,7 +4,7 @@
 #include "hashtable.h"
 
 static entry * new_entry(const char *key, builtin_fn value);
-static entry ** create_table(int size);
+static entry ** create_table(hashtable *ht);
 
 static unsigned long hash(const char *key);
 static builtin_fn get(hashtable *ht, const char *key);
@@ -41,9 +41,9 @@ void clear_hashtable(hashtable *ht) {
 
 }
 
-static entry ** create_table(int size) {
+static entry ** create_table(hashtable *ht) {
 
-    entry **table = (entry **)calloc(size, sizeof(entry *));
+    entry **table = (entry **)calloc(ht->size, sizeof(entry *));
     if (NULL == table) {
         fprintf(stderr, "Error: out of memory\n");
         exit(EXIT_FAILURE);
@@ -86,7 +86,7 @@ static unsigned long hash(const char * key) {
 
     unsigned long hashval = 5381;
 
-    int i = 0;
+    size_t i = 0;
     for (i = 0; i < strlen(key); i++) {
         hashval = ((hashval << 5) + hashval) + key[i];
     }
