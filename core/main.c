@@ -46,6 +46,11 @@ static enum WSH_STATUS wsh_loop() {
         wsh_command cmd = wsh_parseln(&input);
         clear_input(&input);
 
+        if (cmd.nargs <= 0) {
+            clear_command(&cmd);
+            continue;
+        }
+
         status = wsh_execute(&cmd);
         clear_command(&cmd);
 
