@@ -6,7 +6,7 @@ A multi-platform shell written in C
 
 ## Installation and Usage
 ```
-git clone <wsh_url>
+git clone https://github.com/robert-w-gries/wsh
 cd wsh
 mkdir build
 cd build
