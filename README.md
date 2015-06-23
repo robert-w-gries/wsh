@@ -25,7 +25,7 @@ make
 ### Windows
 ```
 Run Visual Studio 2013
-File -> Open -> Project/Solution -> wsh/build/WSH.sln
+File -> Open -> Project/Solution -> wsh/build/wsh.sln
 Right-click on 'wsh' in the solution explorer -> Set as StartUp Project
 Build Solution
 Run via Visual Studio Debugger or run wsh.exe in wsh/build/Debug or wsh/build/Release
