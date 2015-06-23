@@ -6,6 +6,7 @@
 #include "platform.h"
 #include "../include/wsh_status.h"
 
+static char * windows_get_current_directory(char *buffer, int buffer_size);
 static BOOL WINAPI ConsoleHandler(DWORD dwType);
 
 void init_platform(platform *p) {
@@ -31,8 +32,6 @@ enum WSH_STATUS change_directory(wsh_command *cmd) {
         int path_length = 0;
         getenv_s(&path_length, path, MAX_PATH, "HOME");
 	}
-
-    printf("Path = %s\n", path);
 
 	if (0 != _chdir(path)) {
         perror("wsh");
@@ -81,7 +80,14 @@ enum WSH_STATUS create_process(wsh_command *cmd) {
 
 }
 
-char * get_current_directory(char *buffer, int buffer_size) {
+char * get_current_directory() {
+
+    windows_get_current_directory(my_platform.cwd, MAX_PATH);
+    return my_platform.cwd;
+
+}
+
+static char * windows_get_current_directory(char *buffer, int buffer_size) {
 
     int size = buffer_size > MAX_PATH ? MAX_PATH : buffer_size;
 

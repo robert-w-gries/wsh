@@ -58,7 +58,9 @@ static int get_num_builtins() {
 
 static enum WSH_STATUS wsh_cd(wsh_command *cmd) {
 
-    return change_directory(cmd);
+    enum WSH_STATUS result = change_directory(cmd);
+    get_current_directory();
+    return result;
 
 }
 
