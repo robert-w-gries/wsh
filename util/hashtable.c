@@ -70,7 +70,7 @@ static entry * new_entry(const char *key, builtin_fn value) {
     }
 
     key_copy[0] = '\0';
-    strncat(key_copy, key, length);
+    strncat_s(key_copy, length, key, length);
 
     e->key = key_copy;
     e->value = value;

@@ -24,10 +24,11 @@ wsh_command wsh_parseln(wsh_input *input) {
         exit(EXIT_FAILURE);
     }
 
-    strncpy(input_copy, input->text, input->length);
-    input_copy[input->length] = '\0';
+    input_copy[0] = '\0';
+    strncat_s(input_copy, input->length, input->text, input->length);
 
-    char *token = strtok(input->text, WSH_TOK_DELIM);
+    char *next_token = NULL;
+    char *token = strtok_s(input->text, WSH_TOK_DELIM, &next_token);
     while (token != NULL) {
 
         int token_length = strlen(token);
@@ -37,8 +38,8 @@ wsh_command wsh_parseln(wsh_input *input) {
             exit(EXIT_FAILURE);
         }
 
-        strcpy(tokens[position], token);
-        tokens[position][token_length] = '\0';
+        tokens[position][0] = '\0';
+        strncat_s(tokens[position], token_length, token, token_length);
         position++;
 
         if (position >= bufsize) {
@@ -53,7 +54,7 @@ wsh_command wsh_parseln(wsh_input *input) {
 
         }
 
-        token = (char *) strtok(NULL, WSH_TOK_DELIM);
+        token = (char *)strtok_s(NULL, WSH_TOK_DELIM, &next_token);
 
     }
 
