@@ -1,6 +1,6 @@
 # Root source directory is ${WSH_SOURCE_DIRECTORY}
 cmake_minimum_required (VERSION 2.8)
-project (WSH)
+project (wsh)
 
 #Version
 set (WSH_VERSION_MAJOR_1)
