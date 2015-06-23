@@ -1,5 +1,5 @@
-#include <direct.h>
 #include <signal.h>
+#include <Userenv.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
@@ -28,10 +28,9 @@ enum WSH_STATUS change_directory(wsh_command *cmd) {
 	char *path = cmd->args2D[1];
 
     // if no arguments, go to home directory
-    if (1 >= cmd->nargs) {
-        int path_length = 0;
-        getenv_s(&path_length, path, MAX_PATH, "HOME");
-	}
+    if (1 == cmd->nargs) {
+        path = getenv("USERPROFILE");
+    }
 
 	if (0 != _chdir(path)) {
         perror("wsh");
