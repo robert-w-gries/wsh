@@ -49,7 +49,7 @@ static enum WSH_STATUS wsh_loop() {
         status = wsh_execute(&cmd);
         clear_command(&cmd);
 
-    } while (OK == status);
+    } while (OK == status || APPLICATION_FAILURE == status);
 
     return status;
 

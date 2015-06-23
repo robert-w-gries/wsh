@@ -3,9 +3,9 @@
 
 enum WSH_STATUS {
     OK,
+    APPLICATION_FAILURE,
     KILLED,
-    OUT_OF_MEMORY,
-    APPLICATION_FAILURE
+    OUT_OF_MEMORY
 };
 
 #endif
