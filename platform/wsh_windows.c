@@ -53,7 +53,7 @@ enum WSH_STATUS create_process(wsh_command *cmd) {
 
     // Start the child process.
     if (!CreateProcess(NULL, //application name
-        cmd->args1D,      // Command line
+        cmd->args1D,    // Command line
         NULL,           // Process handle not inheritable
         NULL,           // Thread handle not inheritable
         FALSE,          // Set handle inheritance to FALSE
@@ -61,10 +61,10 @@ enum WSH_STATUS create_process(wsh_command *cmd) {
         NULL,           // Use parent's environment block
         NULL,           // Use parent's starting directory
         &si,            // Pointer to STARTUPINFO structure
-        &pi)           // Pointer to PROCESS_INFORMATION structure
+        &pi)            // Pointer to PROCESS_INFORMATION structure
         )
     {
-        printf("CreateProcess failed (%d).\n", (int)GetLastError());
+        fprintf(stderr, "CreateProcess failed (%d).\n", (int)GetLastError());
         return APPLICATION_FAILURE;
     }
 
