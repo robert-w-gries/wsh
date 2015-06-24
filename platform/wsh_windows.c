@@ -1,3 +1,4 @@
+#include <direct.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +7,7 @@
 #include "../include/wsh_status.h"
 
 static char * windows_get_current_directory(char *buffer, int buffer_size);
-static int ListDirectoryContents(const char *dir);
+static int windows_list_directory_contents(const char *dir);
 static BOOL WINAPI ConsoleHandler(DWORD dwType);
 
 void init_platform(platform *p) {
