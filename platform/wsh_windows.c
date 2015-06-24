@@ -1,5 +1,4 @@
 #include <signal.h>
-#include <Userenv.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
@@ -7,6 +6,7 @@
 #include "../include/wsh_status.h"
 
 static char * windows_get_current_directory(char *buffer, int buffer_size);
+static int ListDirectoryContents(const char *dir);
 static BOOL WINAPI ConsoleHandler(DWORD dwType);
 
 void init_platform(platform *p) {
@@ -25,19 +25,19 @@ void init_platform(platform *p) {
 
 enum WSH_STATUS change_directory(wsh_command *cmd) {
 
-	char *path = cmd->args2D[1];
+    char *path = cmd->args2D[1];
 
     // if no arguments, go to home directory
     if (1 == cmd->nargs) {
         path = getenv("USERPROFILE");
     }
 
-	if (0 != _chdir(path)) {
+    if (0 != _chdir(path)) {
         perror("wsh");
         return APPLICATION_FAILURE;
     }
 
-	return OK;
+    return OK;
 
 }
 
@@ -52,7 +52,7 @@ enum WSH_STATUS create_process(wsh_command *cmd) {
     ZeroMemory(&pi, sizeof(pi));
 
     // Start the child process.
-    if( !CreateProcess( NULL, //application name
+    if (!CreateProcess(NULL, //application name
         cmd->args1D,      // Command line
         NULL,           // Process handle not inheritable
         NULL,           // Thread handle not inheritable
@@ -61,10 +61,10 @@ enum WSH_STATUS create_process(wsh_command *cmd) {
         NULL,           // Use parent's environment block
         NULL,           // Use parent's starting directory
         &si,            // Pointer to STARTUPINFO structure
-        &pi )           // Pointer to PROCESS_INFORMATION structure
-    )
+        &pi)           // Pointer to PROCESS_INFORMATION structure
+        )
     {
-        printf( "CreateProcess failed (%d).\n", (int) GetLastError() );
+        printf("CreateProcess failed (%d).\n", (int)GetLastError());
         return APPLICATION_FAILURE;
     }
 
@@ -97,6 +97,61 @@ static char * windows_get_current_directory(char *buffer, int buffer_size) {
 
     return buffer;
 
+}
+
+enum WSH_STATUS list_directory_contents(wsh_command *cmd) {
+
+    // TODO: command options
+
+    // list current folder's contents if no arguments passed
+    if (cmd->nargs <= 2) {
+        
+        char *dir = (1 == cmd->nargs) ? "." : cmd->args2D[1];
+        windows_list_directory_contents(dir);
+
+        printf("\n");
+        return OK;
+    }
+
+    // list contents of all directories
+    // TODO: recurse through '..'; testcase = 'ls .. test ../..'
+    int i = 1;
+    for (i = 1; i < cmd->nargs; i++) {
+        printf("%s:\n", cmd->args2D[i]);
+        windows_list_directory_contents(cmd->args2D[i]);
+        printf("\n");
+    }
+
+    return OK;
+
+}
+
+static int windows_list_directory_contents(const char *dir) {
+
+    // path specifying all files/directories
+    char path[MAX_PATH];
+    sprintf(path, "%s\\*.*", dir);
+
+    WIN32_FIND_DATA fdFile;
+    HANDLE hFind = NULL;
+    if ((hFind = FindFirstFile(path, &fdFile)) == INVALID_HANDLE_VALUE) {
+        fprintf(stderr, "ls: %s: No such file or directory\n", dir);
+        return 0;
+    }
+
+    do {
+
+        if (fdFile.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            printf("%s\n", fdFile.cFileName); // directory
+        }
+        else {
+            printf("%s\n", fdFile.cFileName); // file
+        }
+
+    } while (FindNextFile(hFind, &fdFile));
+
+    FindClose(hFind);
+    return 1;
 }
 
 enum WSH_STATUS signal_handler() {

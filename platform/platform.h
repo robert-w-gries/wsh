@@ -16,6 +16,7 @@ void init_platform(platform *p);
 enum WSH_STATUS change_directory(wsh_command *cmd);
 enum WSH_STATUS create_process(wsh_command *cmd);
 char * get_current_directory();
+enum WSH_STATUS list_directory_contents(wsh_command *cmd);
 enum WSH_STATUS signal_handler();
 
 #endif

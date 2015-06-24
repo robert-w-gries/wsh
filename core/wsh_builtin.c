@@ -8,6 +8,7 @@ static int get_num_builtins();
 
 static enum WSH_STATUS wsh_cd(wsh_command *cmd);
 static enum WSH_STATUS wsh_help(wsh_command *cmd);
+static enum WSH_STATUS wsh_ls(wsh_command *cmd);
 static enum WSH_STATUS wsh_exit(wsh_command *cmd);
 
 static hashtable ht;
@@ -15,12 +16,14 @@ static hashtable ht;
 static const char *builtin_str[] = {
     "cd",
     "help",
+    "ls",
     "exit"
 };
 
 static builtin_fn builtin_ptr[] = {
     &wsh_cd,
     &wsh_help,
+    &wsh_ls,
     &wsh_exit
 };
 
@@ -68,6 +71,12 @@ static enum WSH_STATUS wsh_help(wsh_command *cmd) {
 
     printf("This is not helpful\n");
     return OK;
+
+}
+
+static enum WSH_STATUS wsh_ls(wsh_command *cmd) {
+
+    return list_directory_contents(cmd);
 
 }
 
