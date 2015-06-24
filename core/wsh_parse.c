@@ -68,4 +68,3 @@ wsh_command wsh_parseln(wsh_input *input) {
 
     return cmd;
 }
-

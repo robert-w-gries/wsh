@@ -10,4 +10,3 @@ struct wsh_input_struct {
 void clear_input(wsh_input *input);
 
 #endif
-

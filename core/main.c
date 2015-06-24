@@ -59,4 +59,3 @@ static enum WSH_STATUS wsh_loop() {
     return status;
 
 }
-

@@ -8,4 +8,3 @@ void clear_command(wsh_command *cmd) {
     free(cmd->args2D);
 
 }
-

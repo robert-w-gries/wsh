@@ -182,4 +182,3 @@ static BOOL WINAPI ConsoleHandler(DWORD dwType) {
 
     return TRUE;
 }
-

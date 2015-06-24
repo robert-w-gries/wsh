@@ -86,4 +86,3 @@ static enum WSH_STATUS wsh_exit(wsh_command *cmd) {
     return OK;
 
 }
-
