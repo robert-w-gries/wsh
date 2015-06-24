@@ -37,14 +37,17 @@ wsh_input wsh_readln() {
     strcat(text, buffer);
 
     //remove trailing newline character
+    int has_newline = 0;
     int length = strlen(text) - 1;
     if (length > 0 && text[length] == '\n') {
+        has_newline = 1;
         text[length] = '\0';
     }
 
     wsh_input input;
     input.text = text;
     input.length = length;
+    input.has_newline = has_newline;
 
     return input;
 }

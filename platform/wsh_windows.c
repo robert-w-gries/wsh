@@ -169,17 +169,9 @@ static BOOL WINAPI ConsoleHandler(DWORD dwType) {
 
     switch(dwType) {
 
-        case CTRL_C_EVENT: {
-            printf("ctrl-c\n");
-            exit(EXIT_FAILURE);
+        case CTRL_C_EVENT:
+        case CTRL_BREAK_EVENT:
             break;
-        }
-
-        case CTRL_BREAK_EVENT: {
-            printf("break\n");
-            exit(EXIT_FAILURE);
-            break;
-        }
 
         default: {
             printf("Some other event\n");
