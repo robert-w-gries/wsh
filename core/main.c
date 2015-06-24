@@ -39,9 +39,6 @@ static enum WSH_STATUS wsh_loop() {
 
         wsh_input input = wsh_readln();
         if (input.length <= 0) {
-            if (!input.has_newline) {
-                printf("\n");
-            }
             clear_input(&input);
             continue;
         }
