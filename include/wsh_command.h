@@ -17,10 +17,8 @@ struct wsh_command_struct {
     char *args1D;
     char **args2D;
     enum OUTPUT_TYPE cmd_type;
-    void (*delete_this)(struct wsh_command_struct *);
 } typedef wsh_command;
 
-wsh_command * new_wsh_command();
 void clear_command(wsh_command *cmd);
 
 #endif
