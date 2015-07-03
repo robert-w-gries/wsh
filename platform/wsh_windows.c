@@ -20,7 +20,7 @@ void init_platform(platform *p) {
         exit(EXIT_FAILURE);
     }
 
-    get_current_directory(p->cwd, MAX_PATH);
+    get_current_directory();
 
 }
 
